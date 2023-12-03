@@ -17,12 +17,12 @@ with open('payload.txt', 'r', encoding='utf-8') as file:
         # FOR EACH ITEM GET PLAY COUNT
         track = line.strip()
         count = int(track)
-        print('Current track: ', i, ', Play count: ', count)
+        print('Current track:', i, ', Play count:', count)
         # PLAY TRACK N TIMES
         for i in range(count):
             os.system(
                 '''/usr/bin/osascript -e 'tell application "Music" to set player position to (get duration of current track) - 0.5' ''')
-            print('Count is set ', i + 1, ' times')
+            print('Count is set', i + 1, 'times')
             time.sleep(1)
         # SKIP TO NEXT TRACK
         os.system(
