@@ -1,14 +1,23 @@
 import os
 import time
 
+
+def run_script(command):
+    """
+    This function runs the given osascript command.
+    """
+    os.system(
+        f"/usr/bin/osascript -e 'tell application \"Music\" to {command}'")
+
+
 # START
 print('Script started')
 
 # FOCUS MUSIC APP
-os.system('''/usr/bin/osascript -e 'tell application "Music" to activate' ''')
+run_script('activate')
 
 # PLAY
-os.system('''/usr/bin/osascript -e 'tell application "Music" to play' ''')
+run_script('play')
 
 # READ PAYLOAD
 with open('payload.txt', 'r', encoding='utf-8') as file:
@@ -20,17 +29,14 @@ with open('payload.txt', 'r', encoding='utf-8') as file:
         print('Current track:', i, ', Play count:', count)
         # PLAY TRACK N TIMES
         for i in range(count):
-            os.system(
-                '''/usr/bin/osascript -e 'tell application "Music" to set player position to (get duration of current track) - 0.5' ''')
+            run_script(
+                'set player position to (get duration of current track) - 0.5')
             print('Count is set', i + 1, 'times')
             time.sleep(1)
         # SKIP TO NEXT TRACK
-        os.system(
-            '''/usr/bin/osascript -e 'tell application "Music" to set song repeat to off' ''')
-        os.system(
-            '''/usr/bin/osascript -e 'tell application "Music" to next track' ''')
-        os.system(
-            '''/usr/bin/osascript -e 'tell application "Music" to set song repeat to one' ''')
+        run_script('set song repeat to off')
+        run_script('next track')
+        run_script('set song repeat to one')
         time.sleep(1)
 
 # DONE
