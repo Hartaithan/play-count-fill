@@ -1,11 +1,7 @@
-import subprocess
+import csv
 
-script = """
-tell application "Music"
-    set played count of current track to 10
-end tell
-"""
-
-process = subprocess.Popen(
-    ['osascript', '-'], stdin=subprocess.PIPE, stdout=subprocess.PIPE)
-stdout, stderr = process.communicate(script.encode())
+with open('playlist.csv', 'r', encoding='utf-8-sig') as file:
+    reader = csv.DictReader(file, delimiter=';')
+    for row in reader:
+        title = row['Название']
+        print(title)
